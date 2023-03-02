@@ -10,8 +10,11 @@ block content
     div.form-group
       label(for='password') Password*
       input#password.form-control(type='password' name='password' autocomplete='current-password' required)
-    div.form-group
     button.btn.btn-primary(type='submit') Log In
+  
+  p Don't have an account? 
+    a(href='/signup') Sign Up
+    |  here.
 
   if errors
     ul

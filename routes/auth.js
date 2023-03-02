@@ -16,4 +16,7 @@ router.get('/login', auth_controller.auth_login_get);
 
 router.post('/login', auth_controller.auth_login_post);
 
+// ---------------- LOG OUT -----------------
+router.get('/logout', auth_controller.auth_logout_get);
+
 module.exports = router;

@@ -4,4 +4,12 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    nav
+      ul(style='display: flex; gap: 30px')
+        li
+          a(href='/') Home
+        li
+          a(href='/login') Log In
+        li
+          a(href='/signup') Sign Up
     block content
