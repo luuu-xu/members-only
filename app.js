@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
+const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,7 +15,6 @@ const authRouter = require('./routes/auth');
 var app = express();
 
 // Mongoose connection setup
-const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const mongoDB = process.env.MONGODB_URI;
 main().catch(err => console.log(err));
@@ -30,6 +32,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session setup
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.session());
+
+// Passport initialization
+app.use(passport.initialize());
+
+// Set locals object with the current logged in user
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.isLoggedIn = req.isAuthenticated();
+  next();
+});
+
+// Routes setup
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/users', usersRouter);

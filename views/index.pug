@@ -2,4 +2,9 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome! 
+  if isLoggedIn
+    p= currentUser.name
+    p You member status: #{currentUser.member_status}
+  else
+    a(href='/login') Log In
