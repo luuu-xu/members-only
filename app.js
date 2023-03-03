@@ -7,6 +7,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const compression = require('compression');
+const helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,6 +16,9 @@ const authRouter = require('./routes/auth');
 const messageRouter = require('./routes/message');
 
 var app = express();
+
+// Protect from web vulnerabilities with Helmet.
+app.use(helmet());
 
 // Mongoose connection setup
 mongoose.set('strictQuery', false);
@@ -26,6 +31,9 @@ async function main() {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// Compress HTTP response with compression
+app.use(compression());
 
 app.use(logger('dev'));
 app.use(express.json());
