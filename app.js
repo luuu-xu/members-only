@@ -6,7 +6,8 @@ var logger = require('morgan');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const passport = require('passport');
-const session = require('express-session');
+// const session = require('express-session');
+const session = require('cookie-session');
 const compression = require('compression');
 const helmet = require('helmet');
 
