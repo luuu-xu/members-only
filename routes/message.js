@@ -10,7 +10,7 @@ router.get('/newmessage', message_controller.message_create_get);
 
 router.post('/newmessage', message_controller.message_create_post);
 
-// GET for displaying a list of messages.
-// router.get('/', message_controller.message_list_get);
+// POST for deleting a message.
+router.post('/deletemessage', message_controller.message_delete_post);
 
 module.exports = router;

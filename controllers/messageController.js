@@ -62,3 +62,18 @@ exports.message_create_post = [
     }
   }
 ];
+
+// Handle message delete on POST.
+exports.message_delete_post = (req, res, next) => {
+  // Redirect to log in page if the current user is not admin.
+  if (!req.isAuthenticated()) {
+    res.redirect('/login');
+  } else if (req.user.member_status !== 'admin') {
+    res.redirect('/');
+  } else {
+    // Current logged in user is admin, delete the message.
+    Message.findByIdAndDelete(req.body.messageid)
+      .then(() => res.redirect('/'))
+      .catch(err => next(err));
+  }
+}

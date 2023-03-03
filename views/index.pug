@@ -6,7 +6,14 @@ block content
   if isLoggedIn
     p= currentUser.name
     a(href='/logout') Log Out
+    
+    hr
     p You member status: #{currentUser.member_status}
+    if !isMember && !isAdmin
+      p Join the club to see who created the messages 
+        a(href='/joinclub') Join Club
+
+    hr
     p Leave a message 
       a(href='/newmessage') New Message
   else
@@ -19,5 +26,13 @@ block content
         li
           h3= message.title
           p= message.message
-          p Created by #{isMember ? message.author.name : ' our anonymous member'}
+          if isMember
+            p Created by #{message.author.name} on #{message.timestamp_formatted}
+          else if isAdmin
+            p Created by #{message.author.name} on #{message.timestamp_formatted}
+            form(method='POST' action='deletemessage')
+              input#messageid.form-control(type='hidden' name='messageid' required value=message._id)
+              button.btn(type='submit') Delete Message
+          else 
+            p Created by our anonymous member
 

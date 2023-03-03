@@ -12,4 +12,11 @@ html
           a(href='/login') Log In
         li
           a(href='/signup') Sign Up
+        if isLoggedIn
+          li
+            a(href='/newmessage') New Message
+          li
+            a(href='joinclub') Join Club
+    
+    hr
     block content

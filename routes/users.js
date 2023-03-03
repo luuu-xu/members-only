@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const user_controller = require('../controllers/userController');
+
+/* GET user join club form. */
+router.get('/joinclub', user_controller.user_joinclub_get);
+
+// POST user join club form.
+router.post('/joinclub', user_controller.user_joinclub_post);
 
 module.exports = router;

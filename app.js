@@ -48,6 +48,10 @@ app.use(passport.initialize());
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.isLoggedIn = req.isAuthenticated();
+  if (req.user) {
+    res.locals.isMember = req.user.member_status === 'member';
+    res.locals.isAdmin = req.user.member_status === 'admin';
+  }
   next();
 });
 
@@ -55,7 +59,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/', messageRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
